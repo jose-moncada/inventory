@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="form-login">
+        <form method="POST">
+            {% csrf_token %}
+            <h1>INICIAR SESIÓN</h1>
+            <input type="email" name="email" id="inputEmail" placeholder="email@example.com">
+            <input type="password" name="password" id="inputPassword" placeholder="Password (Mímino 6 caracteres)">
+            <button type="submit">Iniciar Sesión</button>
+            <h3>O</h3>
+            <h3>¿Eres nuevo?</h3>
+            <h3><a href="{% url 'registro' %}">REGÍSTRATE</a></h3>
+            {% if mensaje %}
+            <h3 class="{% if '👌' in mensaje %}success{% else %}error{% endif %}">
+                {{ mensaje }}
+            </h3>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

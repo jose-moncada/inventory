@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="form-register">
+        <form method="POST">
+            <h1>REGÍSTRATE</h1>
+            {% csrf_token %}
+            <input id="inputEmail" name="email" type="email" placeholder="email@example.com" required>
+            <input id="inputPassword" name="password" type="password" placeholder="Password (Mínimo 6 caracteres)" required>
+            <button type="submit">Registrarse</button>
+            <h3>O</h3>
+            <h3>¿Ya tienes cuenta?</h3>
+            <h3><a href="{% url 'login' %}">INICIAR SESIÓN</a></h3>
+            {% if mensaje %}
+            <h3 class="{% if '👌' in mensaje %}success{% else %}error{% endif %}">
+                {{ mensaje }}
+            </h3>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

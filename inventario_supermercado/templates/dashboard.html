@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="encabezado">
+        <button onclick="window.location.href='{% url 'logout' %}'">Cerrar Sesión</button>
+        <h1 id="descrip">Panel de Control de Datos de Usuario</h1>
+    </div>
+    <div class="prueba">
+        <div class="datos">
+            <h1 id="datosUserTxt">Datos del Usuario</h1>
+            <div class="campoEmail">
+                <h3>Email:</h3>
+                <p>{{ datos.email }}</p>
+            </div>
+            <div class="campoRol">
+                <h3>Rol:</h3>
+                <p>{{ datos.rol }}</p>
+            </div>
+            <div class="campoUid">
+                <h3>UID:</h3>
+                <p>{{ datos.uid }}</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
