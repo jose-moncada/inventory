@@ -29,3 +29,10 @@ Antes de ejecutar el proyecto debes tener instalado:
 ```bash
 git clone https://github.com/jose-moncada/inventario-supermercado.git
 cd inventario-supermercado
+
+```
+
+Luego ve a la carpeta donde clonaste el proyecto y en CMD coloca:
+```bash
+python manage.py runserver
+```
