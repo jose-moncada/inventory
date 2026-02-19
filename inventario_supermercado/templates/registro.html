@@ -104,10 +104,11 @@
     </style>
 </head>
 <body>
+    {% csrf_token %}
     <div class="cuadro">
         <h2>
             <form method="POST">
-                {% csrf_token %}
+                <h1>REGISTRATE</h1>
                 <label>Correo:</label>
                 <input type="email" name="email" placeholder="ejemplo@example.com" required><br>
                 <label>Contraseña:</label>

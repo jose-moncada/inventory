@@ -227,7 +227,7 @@ def editar_producto(request, producto_id):
             producto_ref.update({
                 'nombre_producto': nuevo_titulo,
                 'descripcion': nueva_desc,
-                'estado': nueva_cantidad,
+                'cantidad': nueva_cantidad,
                 'fecha_actualizacion': firestore.SERVER_TIMESTAMP
             })
 
