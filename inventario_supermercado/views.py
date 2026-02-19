@@ -11,6 +11,9 @@ import requests
 
 db = initialize_firebase()
 
+def bienvenido(request):
+    return render(request, 'bienvenido.html')
+
 def registro_usuario(request):
     mensaje = None
     if request.method == 'POST':
@@ -102,68 +105,7 @@ def login(request):
             messages.error(request, f"Error inesperado: {str(e)}")
     return render(request, 'login.html')
 
-@login_required_firebase #Verifica que el user esté logueado
-def dashboard(request):
-    # Este es el panl principal, este solo lo permite si el decorador lo permite
-    # Recuparar los datos de Firestore
-
-    uid= request.session.get('uid')
-    datosUser = {}
-
-    try:
-        # Consulta a Firestore usando SDK 
-        doc_ref = db.collection('gerentes').document(uid)
-        doc = doc_ref.get()
-
-        if doc.exists:
-            datosUser = doc.to_dict()
-        else:
-            # Si entra en el out pero no tiene un perfil en Firestore vamos a manejar el caso
-            datosUser = {
-                'email' : request.session.get('email'),
-                'rol' : request.session.get('rol'),
-                'uid' : request.session.get('uid'),
-                'fecha_registro' : firestore.SERVER_TIMESTAMP
-            }
-    except Exception as e:
-        messages.error(request, f'Error al cargar los datos de la base de datos: {e}')
-    return render(request, 'dashboard.html', {'datos': datosUser})
-
-@login_required_firebase # Verifica que el usuario esta loggeado
-def anadir_producto(request):
-    """
-    CREATE: Reciben los datos desde el formulario y se almacenan
-    """
-    if (request.method == 'POST'):
-        nombre_producto = request.POST.get('titulo')
-        descripcion = request.POST.get('descripcion')
-        cantidad = request.POST.get('cantidad')
-        uid = request.session.get('uid')
-
-        try:
-            db.collection('productos').add({
-                'nombre_producto': nombre_producto,
-                'descripcion': descripcion,
-                'cantidad' : cantidad,
-                'usuario_id': uid,
-                'fecha_añadido': firestore.SERVER_TIMESTAMP
-            })
-            messages.success(request, "producto añadido con exito")
-            return redirect('listar_productos')
-        except Exception as e:
-            messages.error(request, f"Error al añadir el producto {e}")
-        
-    return render(request, 'productos/form.html')
-
-@login_required_firebase # Verifica que el usuario esta loggeado
-def eliminar_producto(request, producto_id):
-    """
-    DELETE: Eliminar un documento especifico por id
-    """
-    try:
-        db.collection('productos').document(producto_id).delete()
-        messages.success(request, "🗑️ Producto eliminado.")
-    except Exception as e:
-        messages.error(request, f"Error al eliminar: {e}")
-
-    return redirect('listar_productos')
+def cerrar_sesion(request):
+    request.session.flush()
+    messages.info(request, 'Has cerrado sesión correctamente')
+    return redirect('login')
