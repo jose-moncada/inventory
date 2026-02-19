@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Super Trhee</title>
+
+    <style>
+        
+        body {
+            margin: 0;
+            background: #FFF9F4;
+            font-family: 'Segoe UI', sans-serif;
+        }
+    
+        /* NAVBAR */
+        .sup {
+            background: #E57373; /* rojo pastel */
+            color: #FFFFFF;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .sup h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+    
+        .sup a {
+            color: #FFFFFF;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+    
+        .sup a:hover {
+            color: #FFE082; /* amarillo pastel suave */
+        }
+    
+        /* HERO SECTION */
+        .centro {
+            text-align: center;
+            padding: 80px 80px;
+            background: #FFE082; /* amarillo pastel */
+            color: #5D4037; /* café suave para contraste */
+        }
+    
+        .centro h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+    
+        .centro p {
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    
+        /* BOTONES */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            background: #A5D6A7; /* verde pastel */
+            color: #ffffff;
+        }
+    
+        .btn:hover {
+            background: #81C784; /* verde un poco más fuerte */
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="sup">
+        <h1>SUPER TRHEE</h1>
+        <div>
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="centro">
+        <h2>Sistema de Administracion de productos</h2>
+        <p>
+            Bienvenido/a al sistema de administracion de productos, diseñado para facilitar la gestion de productos en
+            Super Three. Nuestro sistema ofrece una plataforma intuitiva y eficiente para que los usuarios puedan
+            registrar, actualizar y gestionar sus productos de manera segura. Con autenticacion mediante Firebase y
+            proteccion de sesiones, garantizamos la confidencialidad y seguridad de la informacion de nuestros usuarios.
+        </p>
+
+        <a href="{% url 'registro' %}" class="btn">Registrarse</a>
+    </div>
+
+</body>
+
+</html>
