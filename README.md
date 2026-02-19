@@ -37,3 +37,5 @@ Luego en CMD coloca:
 ```bash
 python manage.py runserver
 ```
+
+😊
