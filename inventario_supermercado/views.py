@@ -186,3 +186,59 @@ def anadir_producto(request):
             messages.error(request, f"Error al añadir el producto {e}")
         
     return render(request, 'productos/anadir.html')
+
+@login_required_firebase # Verifica que el usuario esta loggeado
+def eliminar_producto(request, producto_id):
+    """
+    DELETE: Eliminar un documento especifico por id
+    """
+    try:
+        db.collection('productos').document(producto_id).delete()
+        messages.success(request, "🗑️ Producto eliminado.")
+    except Exception as e:
+        messages.error(request, f"Error al eliminar: {e}")
+
+    return redirect('listar_productos')
+    
+@login_required_firebase # Verifica que el usuario esta loggeado
+def editar_producto(request, producto_id):
+    """
+    UPDATE: Recupera los datos del producto especifico y actualiza los campos en firebase
+    """
+    uid = request.session.get('uid')
+    producto_ref = db.collection('productos').document(producto_id)
+
+    try:
+        doc = producto_ref.get()
+
+        if not doc.exists:
+            messages.error(request, "El producto no existe")
+            return redirect('listar_productos')
+        
+        producto_data = doc.to_dict()
+
+        if producto_data.get('usuario_id') != uid:
+            messages.error(request, "No tienes permiso para editar este producto")
+            return redirect('listar_productos')
+        
+        if request.method == 'POST':
+            nueva_clasificacion = request.POST.get('clasificacion') 
+            nuevo_titulo = request.POST.get('nombre_producto')
+            nueva_desc = request.POST.get('descripcion')
+            nueva_cantidad = request.POST.get('cantidad')
+
+            producto_ref.update({
+                'nombre_producto': nuevo_titulo,
+                'descripcion': nueva_desc,
+                'cantidad': nueva_cantidad,
+                'clasificacion': nueva_clasificacion,
+                'fecha_actualizacion': firestore.SERVER_TIMESTAMP
+            })
+
+            messages.success(request, "✅ producto actualizado correctamente.")
+            return redirect('listar_productos')
+    except Exception as e:
+        messages.error(request, f"Error al editar el producto: {e}")
+        return redirect('listar_productos')
+    
+    return render(request, 'productos/editar.html', {'producto': producto_data, 'id': producto_id})
