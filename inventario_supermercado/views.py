@@ -60,6 +60,7 @@ def cerrar_sesion(request):
     messages.info(request, 'Has cerrado sesión correctamente')
     return redirect('login')
 
+#listar productos
 @login_required_firebase
 def listar_productos(request):
     """
@@ -82,44 +83,3 @@ def listar_productos(request):
     
     return render(request, 'productos/listar.html', {'productos' : productos})
 
-
-@login_required_firebase # Verifica que el usuario esta loggeado
-def editar_producto(request, producto_id):
-    """
-    UPDATE: Recupera los datos del producto especifico y actualiza los campos en firebase
-    """
-    uid = request.session.get('uid')
-    producto_ref = db.collection('productos').document(producto_id)
-
-    try:
-        doc = producto_ref.get()
-
-        if not doc.exists:
-            messages.error(request, "El producto no existe")
-            return redirect('listar_productos')
-        
-        producto_data = doc.to_dict()
-
-        if producto_data.get('usuario_id') != uid:
-            messages.error(request, "No tienes permiso para editar este producto")
-            return redirect('listar_productos')
-        
-        if request.method == 'POST':
-            nuevo_titulo = request.POST.get('nombre_producto')
-            nueva_desc = request.POST.get('descripcion')
-            nueva_cantidad = request.POST.get('cantidad')
-
-            producto_ref.update({
-                'nombre_producto': nuevo_titulo,
-                'descripcion': nueva_desc,
-                'estado': nueva_cantidad,
-                'fecha_actualizacion': firestore.SERVER_TIMESTAMP
-            })
-
-            messages.success(request, "✅ producto actualizado correctamente.")
-            return redirect('listar_productos')
-    except Exception as e:
-        messages.error(request, f"Error al editar el producto: {e}")
-        return redirect('listar_productos')
-    
-    return render(request, 'productos/editar.html', {'producto': producto_data, 'id': producto_id})
