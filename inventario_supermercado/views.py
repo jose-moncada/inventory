@@ -136,3 +136,53 @@ def dashboard(request):
     except Exception as e:
         messages.error(request, f'Error al cargar los datos de la base de datos: {e}')
     return render(request, 'dashboard.html', {'datos': datosUser})
+
+@login_required_firebase
+def listar_productos(request):
+    """
+    READ: Recuperar los productos del usuario desde firestore
+    """
+
+    uid = request.session.get('uid')
+    productos = []
+
+    try:
+        #Vamos a filtrar los productos que registro del usuario
+
+        docs = db.collection('productos').where('usuario_id', '==', uid).stream()
+        for doc in docs:
+            producto = doc.to_dict()
+            producto['id'] = doc.id
+            productos.append(producto)
+    except Exception as e:
+        messages.error(request, f"Hubo un error al obtener los productos {e}")
+    
+    return render(request, 'productos/listar.html', {'productos' : productos})
+
+@login_required_firebase # Verifica que el usuario esta loggeado
+def anadir_producto(request):
+    """
+    CREATE: Reciben los datos desde el formulario y se almacenan
+    """
+    if (request.method == 'POST'):
+        clasificacion = request.POST.get('clasificacion')
+        nombre_producto = request.POST.get('nombre_producto')
+        descripcion = request.POST.get('descripcion')
+        cantidad = request.POST.get('cantidad')
+        uid = request.session.get('uid')
+
+        try:
+            db.collection('productos').add({
+                'nombre_producto': nombre_producto,
+                'descripcion': descripcion,
+                'cantidad' : cantidad,
+                'clasificacion': clasificacion,
+                'usuario_id': uid,
+                'fecha_añadido': firestore.SERVER_TIMESTAMP
+            })
+            messages.success(request, "producto añadido con exito")
+            return redirect('listar_productos')
+        except Exception as e:
+            messages.error(request, f"Error al añadir el producto {e}")
+        
+    return render(request, 'productos/anadir.html')
