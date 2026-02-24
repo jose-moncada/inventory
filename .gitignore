@@ -1,4 +1,4 @@
 config/.env
 config/serviceAccountKeyIS.json
 venv/
-*.sqlite3
+db.sqlite3
