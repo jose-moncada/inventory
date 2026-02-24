@@ -45,3 +45,4 @@ python manage.py runserver
 **-** Cristian Ferley Suarez Hurtado
 **-** Duvan Alejandro Rodriguez Cardenas
 **-** Jose Rodolfo Murillo Moncada"# supermarket-inventory" 
+"# inventario-supermercado-django" 
