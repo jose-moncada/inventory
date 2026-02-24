@@ -1,0 +1,4 @@
+config/.env
+config/serviceAccountKeyIS.json
+venv/
+*.sqlite3
