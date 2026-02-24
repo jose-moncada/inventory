@@ -1,32 +1,13 @@
-config/serviceAccountKeyIS.json
-# Entorno virtual
+#ambiente virtual
 venv/
-env/
 
-# Archivos de Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Base de datos
-db.sqlite3
-
-# Variables de entorno
+#variables de entorno
 .env
+config/serviceAccountKey.json
 
-# Archivos del sistema
-.DS_Store
-Thumbs.db
+#BD
 
-# Archivos de VS Code
-.vscode/
-
-# Archivos de logs
-*.log
-
-# Archivos de migraciones compiladas
 *.sqlite3
 
-# Archivos temporales
-*.swp
+#Carpetas de Python 
+__pycache__/
