@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+
+    <style>
+
+        body{
+            margin:0;
+            background:#FFF9F4; 
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* NAVBAR */
+        .sup{
+            background:#E57373;
+            color:white;
+            padding:15px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .sup h1{
+            margin:0;
+            font-size:20px;
+        }
+
+        /* CONTENIDO */
+        .contenido{
+            max-width:1000px;
+            margin:40px auto;
+            padding:20px;
+        }
+
+        .tarjeta{
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            border: 2px solid #FFE082;
+        }
+
+        .tarjeta h2{
+            text-align:center;
+            margin-top:0;
+            margin-bottom:25px;
+            color:#5D4037;
+        }
+
+        /* BOTONES */
+        .btn-crear{
+            display:inline-block;
+            margin-bottom:20px;
+            padding:10px 18px;
+            background:#A5D6A7;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
+
+        .btn-crear:hover{
+            background:#81C784;
+            transition:0.3s;
+        }
+
+        .btn-editar{
+            color:#5D4037;
+            font-weight:bold;
+            text-decoration:none;
+        }
+
+        .btn-editar:hover{
+            color:#E57373;
+        }
+
+        .btn-eliminar{
+            color:#D84343;
+            font-weight:bold;
+            text-decoration:none;
+        }
+
+        .btn-eliminar:hover{
+            text-decoration:underline;
+        }
+
+        /* TABLA */
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th{
+            background:#FFE082;
+            color:#5D4037;
+            padding:12px;
+            text-align:left;
+        }
+
+        td{
+            padding:12px;
+            border-bottom:1px solid #eee;
+        }
+
+        tr:hover{
+            background:#FFF3E0;
+        }
+
+        .sin-productos{
+            text-align:center;
+            padding:20px;
+            color:#5D4037;
+        }
+
+        .volver{
+            margin-top:20px;
+            display:inline-block;
+            color:#E57373;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .volver:hover{
+            text-decoration:underline;
+        }
+        .acciones{
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="sup">
+    <h1>Super Trhee</h1>
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido">
+    <div class="tarjeta">
+
+        <h2>Productos Registrados</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Clasificación</th>
+                    <th>Producto</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for tarea in productos %}
+                <tr>
+                    <td>{{ tarea.clasificacion }}</td>
+                    <td>{{ tarea.nombre_producto }}</td>
+                    <td>{{ tarea.descripcion }}</td>
+                    <td>{{ tarea.cantidad }}</td>
+                    <td>
+                        <a href="{% url 'editar_producto' tarea.id %}" class="btn-editar">
+                             Editar
+                        </a>
+                        |
+                        <a href="{% url 'eliminar_producto' tarea.id %}"
+                           class="btn-eliminar"
+                           onclick="return confirm('¿Seguro que deseas eliminar esta tarea?');">
+                             Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="sin-productos">
+                        No tienes productos registrados.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            <br>
+        <div class="acciones">
+            <a href="{% url 'dashboard' %}" class="volver">
+                Volver al inicio
+            </a>
+            <a href="{% url 'anadir_producto' %}" class="btn-crear">
+                Ingresar nuevo producto
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Tarea</title>
+
+    <style>
+
+        body{
+            margin:0;
+            background:#FFF9F4; 
+            font-family: 'Segoe UI', sans-serif;
+        }
+    
+        /* NAVBAR */
+        .sup{
+            background:#E57373;
+            color:white;
+            padding:15px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+    
+        .sup h1{
+            margin:0;
+            font-size:20px;
+        }
+
+        /* CONTENIDO */
+        .contenido{
+            max-width:900px;
+            margin:40px auto;
+            padding:20px;
+        }
+    
+        .tarjeta{
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            border: 2px solid #FFE082;
+        }
+    
+        .tarjeta h2{
+            text-align: center;
+            margin-top:0;
+            margin-bottom:25px;
+            color:#5D4037;
+        }
+
+        /* FORMULARIO */
+        label{
+            font-weight:bold;
+            color:#5D4037;
+        }
+
+        input, textarea, select{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            margin-bottom:20px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        textarea{
+            resize:none;
+            height:100px;
+        }
+
+        /* BOTONES */
+        .acciones{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .btn-guardar{
+            padding:10px 18px;
+            background:#A5D6A7;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+        }
+
+        .btn-guardar:hover{
+            background:#81C784;
+            transition:0.3s;
+        }
+
+        .btn-volver{
+            text-decoration:none;
+            padding:10px 18px;
+            background:#E57373;
+            color:white;
+            border-radius:8px;
+            font-weight:bold;
+        }
+
+        .btn-volver:hover{
+            background:#D84343;
+            transition:0.3s;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="sup">
+    <h1>Super Trhee</h1>
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido">
+    <div class="tarjeta">
+
+        <h2>Editar Tarea</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Clasificación:</label>
+            <input type="text" name="clasificacion" value="{{ tarea.clasificacion }}" required>
+
+            <label>Producto:</label>
+            <input type="text" name="nombre_producto" value="{{ tarea.nombre_producto }}" required>
+
+            <label>Descripcion:</label>
+            <textarea name="descripcion" required>{{ tarea.descripcion }}</textarea>
+
+            <label>Cantidad:</label>
+            <input type="text" name="cantidad" value="{{ tarea.cantidad }}" required>
+
+            <div class="acciones">
+                <a href="{% url 'listar_productos' %}" class="btn-volver">
+                    Volver
+                </a>
+
+                <button type="submit" class="btn-guardar">
+                    Actualizar
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
