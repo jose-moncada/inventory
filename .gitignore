@@ -1,4 +1,6 @@
-config/serviceAccountKeyIS.json
-config/.env
 venv/
+__pycache__/
+*.pyc
 *.sqlite3
+config/.env
+config/serviceAccountKeyIS.json
