@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+
+    <style>
+        
+        body{
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #FFF9F4;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        /* Contenedor */
+        .cuadro{
+            background: #FFE082;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 16px;
+        }
+        
+        /* Título */
+        .cuadro h2{
+            text-align: center;
+            margin-bottom: 20px;
+            color:#E57373;
+        }
+        
+        /* Labels */
+        label{
+            display: block;
+            margin-bottom: 5px;
+            color:#5D4037;
+            font-weight: 600;
+        }
+        
+        /* Inputs */
+        input{
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #FFE082;
+            transition: 0.3s;
+        }
+        
+        /* Botón */
+        button{
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #A5D6A7;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        button:hover{
+            opacity: 0.9;
+            transform: translateY(-2px);
+            transition: 0.3s;
+        }
+        
+        /* Texto extra */
+        .extra{
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        /* Link */
+        .link{
+            color: #E57373;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .link:hover{
+            text-decoration: underline;
+        }
+        
+        /* Mensajes */
+        .error{
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            background: #ffcdd2;
+            color: #b71c1c;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        </style>
+
+</head>
+
+<body>
+
+    <div class="cuadro">
+        <h2>
+            <form method="POST">
+                {% csrf_token %}
+
+                <label>Correo:</label>
+                <input type="email" name="email" placeholder="Ejemplo@sena.edu.co" required><br>
+
+                <label>Contraseña:</label>
+                <input type="password" name="password" placeholder="Minimo 6 caracteres" required><br>
+
+                <button type="submit">Registrar</button>
+                
+                <p >
+                    <div class="extra">¿Ya habias administrado los productos?</div>
+                    <a class="link"href="{% url 'login' %}">Inicia sesión</a>
+                </p>                                 
+
+                {% if mensaje %}
+                    <p class="{% if '✅' in mensaje %}success{% else %}error{% endif %}">
+                        {{ mensaje }}
+                    </p>
+                {% endif %}
+            </form>
+        </h2>
+    </div>
+
+</body>
+</html>

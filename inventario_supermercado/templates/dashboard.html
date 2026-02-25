@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <style>
+
+        body{
+            margin:0;
+            background:#FFF9F4; 
+            font-family: 'Segoe UI', sans-serif;
+        }
+    
+        /* NAVBAR */
+        .sup{
+            background:#E57373;
+            color:white;
+            padding:15px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+    
+        .sup h1{
+            margin:0;
+            font-size:20px;
+        }
+    
+        .sup span{
+            font-size:14px;
+        }
+    
+        /* CONTENIDO */
+        .contenido{
+            max-width:900px;
+            margin:40px auto;
+            padding:20px;
+        }
+    
+        .tarjeta{
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            border: 2px solid #FFE082;
+        }
+    
+        .tarjeta h2{
+            text-align: center;
+            margin-top:0;
+            margin-bottom:20px;
+            color:#5D4037;
+        }
+        .success{
+            background:#C8E6C9;
+            color:#2E7D32;
+        }
+        /* MENSAJES */
+        .mensaje{
+            padding:12px;
+            border-radius:8px;
+            margin-bottom:15px;
+            font-size:14px;
+        }
+
+        .info{
+            padding:12px;
+            margin-bottom:15px;
+            border-radius:8px;
+            background:#FFF3E0;
+            color:#5D4037;
+        }
+    
+        .info strong{
+            color:#E57373; 
+        }
+
+        /* BOTÓN VER PRODUCTOS */
+        .btn-productos{
+            display:inline-block;
+            margin-top:15px;
+            padding:10px 18px;
+            background:#A5D6A7;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
+    
+        .btn-productos:hover{
+            background:#81C784;
+            transition:0.3s;
+        }
+    
+        /* BOTÓN LOGOUT */
+        .logout-btn{
+            margin-top:20px;
+            padding:10px 18px;
+            background:#E57373;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:bold;
+        }
+    
+        .logout-btn:hover{
+            background:#D84343;
+            transition:0.3s;
+        }
+    
+        .acciones{
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>    
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="sup">
+    <h1>Super Trhee</h1>
+    <span>Bienvenido/a, {{ datos.email }}</span>
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido">
+    <div class="tarjeta">
+
+        <!-- MENSAJES -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mensaje {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <h2>Información del administrador</h2>
+
+        <div class="info">
+            <strong>Correo:</strong> {{ datos.email }}
+        </div>
+
+        <div class="info">
+            <strong>UID:</strong> {{ datos.uid }}
+        </div>
+
+        <div class="info">
+            <strong>Rol:</strong> {{ datos.rol }}
+        </div>
+
+        <div class="info">
+            <strong>Fecha de registro:</strong> {{ datos.fecha_registro }}
+        </div>
+        
+        <div class="acciones">
+    
+            <a href="{% url 'listar_productos' %}" class="btn-productos">
+                Ver los productos
+            </a>
+        
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">
+                    Cerrar sesión
+                </button>
+            </form>
+        
+        </div>
+        
+    </div>
+</div>
+
+</body>
+</html>
