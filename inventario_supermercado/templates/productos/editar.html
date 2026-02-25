@@ -125,16 +125,16 @@
             {% csrf_token %}
 
             <label>Clasificación:</label>
-            <input type="text" name="clasificacion" value="{{ tarea.clasificacion }}" required>
+            <input type="text" name="clasificacion" value="{{ producto.clasificacion }}" required>
 
             <label>Producto:</label>
-            <input type="text" name="nombre_producto" value="{{ tarea.nombre_producto }}" required>
+            <input type="text" name="nombre_producto" value="{{ producto.nombre_producto }}" required>
 
             <label>Descripcion:</label>
-            <textarea name="descripcion" required>{{ tarea.descripcion }}</textarea>
+            <textarea name="descripcion" required>{{ producto.descripcion }}</textarea>
 
             <label>Cantidad:</label>
-            <input type="text" name="cantidad" value="{{ tarea.cantidad }}" required>
+            <input type="text" name="cantidad" value="{{ producto.cantidad }}" required>
 
             <div class="acciones">
                 <a href="{% url 'listar_productos' %}" class="btn-volver">

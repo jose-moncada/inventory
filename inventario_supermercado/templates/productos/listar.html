@@ -163,15 +163,9 @@
                     <td>{{ tarea.descripcion }}</td>
                     <td>{{ tarea.cantidad }}</td>
                     <td>
-                        <a href="{% url 'editar_producto' tarea.id %}" class="btn-editar">
-                             Editar
-                        </a>
+                        <a href="{% url 'editar_producto' tarea.id %}" class="btn-editar">Editar</a>
                         |
-                        <a href="{% url 'eliminar_producto' tarea.id %}"
-                           class="btn-eliminar"
-                           onclick="return confirm('¿Seguro que deseas eliminar esta tarea?');">
-                             Eliminar
-                        </a>
+                        <a href="{% url 'eliminar_producto' tarea.id %}" class="btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este producto?');">Eliminar</a>
                     </td>
                 </tr>
                 {% empty %}
